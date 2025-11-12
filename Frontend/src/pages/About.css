@@ -1,0 +1,95 @@
+.about-page {
+  min-height: 100vh;
+  background-color: white;
+  padding: 4rem 0;
+}
+
+.about-container {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.about-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.about-section {
+  margin-bottom: 2rem;
+}
+
+.about-section h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.about-section p {
+  color: #374151;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+.about-section ul {
+  list-style-position: inside;
+  color: #374151;
+  line-height: 1.75;
+  margin-left: 1rem;
+}
+
+.about-section ul li {
+  margin-bottom: 0.5rem;
+}
+
+.mission {
+  background-color: #f0fdf4;
+  padding: 2rem;
+  border-radius: 0.5rem;
+}
+
+.mission h2 {
+  color: #15803d;
+}
+
+.tech-stack {
+  background-color: #f9fafb;
+  padding: 2rem;
+  border-radius: 0.5rem;
+}
+
+.tech-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .tech-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.tech-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2E8B57;
+  margin-bottom: 0.5rem;
+}
+
+.tech-card ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tech-card ul li {
+  font-size: 0.875rem;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}

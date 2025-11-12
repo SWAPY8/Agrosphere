@@ -1,0 +1,111 @@
+.scheme-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.scheme-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+.scheme-card-header {
+  background: linear-gradient(135deg, #2E8B57 0%, #228B22 100%);
+  padding: 1rem 1.5rem;
+}
+
+.scheme-card-header h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+.scheme-card-body {
+  padding: 1.5rem;
+}
+
+.scheme-description {
+  color: #374151;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.scheme-eligibility {
+  margin-bottom: 1rem;
+}
+
+.scheme-eligibility h4 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.scheme-eligibility p {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.scheme-link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #dcfce7;
+  color: #2E8B57;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.scheme-link:hover {
+  background-color: #bbf7d0;
+}
+
+/* ==================== FILE: src/components/Footer.css ==================== */
+.footer {
+  background-color: #1f2937;
+  color: white;
+  padding: 2rem 0;
+  margin-top: 5rem;
+}
+
+.footer-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.footer-content {
+  text-align: center;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.footer-icon {
+  font-size: 1.875rem;
+}
+
+.footer-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.footer-description {
+  color: #9ca3af;
+  margin-bottom: 1rem;
+}
+
+.footer-copyright {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
