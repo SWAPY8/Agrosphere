@@ -16,3 +16,5 @@ CREATE TABLE farmer_profiles (
 
 CREATE INDEX idx_state ON farmer_profiles(state);
 CREATE INDEX idx_crop_type ON farmer_profiles(crop_type);
+
+

@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.Map;
+import java.util.HashMap;
+
 
 @RestController
 @RequestMapping("/api/farmer")
@@ -16,15 +19,29 @@ public class FarmerProfileController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerFarmer(@RequestBody FarmerProfile farmer) {
+
+        Map<String, Object> response = new HashMap<>();
+
         try {
             FarmerProfile savedFarmer = farmerService.registerFarmer(farmer);
-            return ResponseEntity.ok(savedFarmer);
+
+            response.put("success", true);
+            response.put("id", savedFarmer.getId());
+            response.put("message", "Profile created successfully");
+
+            return ResponseEntity.ok(response);
+
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body("{\"error\": \"" + e.getMessage() + "\"}");
+            response.put("success", false);
+            response.put("message", e.getMessage());
+
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("{\"error\": \"Server error: " + e.getMessage() + "\"}");
+            response.put("success", false);
+            response.put("message", "Server error: " + e.getMessage());
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 }
