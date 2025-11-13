@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/apis")
 public class RecommendController {
     private final RestTemplate restTemplate = new RestTemplate();
     private final String mlUrl = "http://127.0.0.1:8000/recommend";
