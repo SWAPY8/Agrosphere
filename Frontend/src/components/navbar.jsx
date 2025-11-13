@@ -21,16 +21,27 @@ const Navbar = ({
 
   const handleProfileUpdate = (e) => {
     e.preventDefault();
+    
+    // Validate required fields
+    if (!farmerProfile.name || !farmerProfile.state || !farmerProfile.landSize || !farmerProfile.cropType) {
+      alert('Please fill all required fields: Name, State, Land Size, and Crop Type');
+      return;
+    }
+    
     setShowProfile(false);
-    alert('Profile updated successfully!');
+    alert('Profile saved successfully! Visit Schemes page to see personalized recommendations.');
   };
 
   const handleInputChange = (e) => {
+    const { name, value } = e.target;
     setFarmerProfile({
       ...farmerProfile,
-      [e.target.name]: e.target.value
+      [name]: value
     });
   };
+
+  const isProfileComplete = farmerProfile.name && farmerProfile.state && 
+                            farmerProfile.landSize && farmerProfile.cropType;
 
   return (
     <>
@@ -60,14 +71,15 @@ const Navbar = ({
               })}
             </div>
 
-            {/* Profile Icon */}
+            {/* Profile Icon with status indicator */}
             <div className="navbar-actions">
               <button 
-                className="profile-icon"
+                className={`profile-icon ${isProfileComplete ? 'profile-complete' : 'profile-incomplete'}`}
                 onClick={() => setShowProfile(!showProfile)}
-                title="Farmer Profile"
+                title={isProfileComplete ? 'Farmer Profile (Complete)' : 'Farmer Profile (Incomplete)'}
               >
                 <User size={20} />
+                {!isProfileComplete && <span className="profile-dot"></span>}
               </button>
             </div>
 
@@ -120,74 +132,133 @@ const Navbar = ({
               <div className="profile-avatar">
                 <User size={48} />
               </div>
-              <div className="form-group">
-                <label>Full Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={farmerProfile.name}
-                  onChange={handleInputChange}
-                  placeholder="Enter your name"
-                />
+              
+              {!isProfileComplete && (
+                <div className="profile-warning">
+                  <span>⚠️</span>
+                  <p>Complete your profile to get personalized scheme recommendations</p>
+                </div>
+              )}
+
+              {/* Required Fields */}
+              <div className="form-section">
+                <h3>Required Information</h3>
+                
+                <div className="form-group">
+                  <label>Full Name *</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={farmerProfile.name}
+                    onChange={handleInputChange}
+                    placeholder="Enter your name"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label>State *</label>
+                  <select
+                    name="state"
+                    value={farmerProfile.state}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">Select State</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label>Land Size (acres) *</label>
+                  <input
+                    type="number"
+                    name="landSize"
+                    value={farmerProfile.landSize}
+                    onChange={handleInputChange}
+                    step="0.1"
+                    min="0"
+                    placeholder="Enter land size"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label>Crop Type *</label>
+                  <select
+                    name="cropType"
+                    value={farmerProfile.cropType}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">Select Crop Type</option>
+                    <option value="Rice">Rice</option>
+                    <option value="Wheat">Wheat</option>
+                    <option value="Cotton">Cotton</option>
+                    <option value="Sugarcane">Sugarcane</option>
+                    <option value="Maize">Maize</option>
+                    <option value="Pulses">Pulses</option>
+                    <option value="Vegetables">Vegetables</option>
+                    <option value="Fruits">Fruits</option>
+                    <option value="Oilseeds">Oilseeds</option>
+                    <option value="Tea">Tea</option>
+                    <option value="Coffee">Coffee</option>
+                    <option value="Spices">Spices</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
               </div>
-              <div className="form-group">
-                <label>State</label>
-                <select
-                  name="state"
-                  value={farmerProfile.state}
-                  onChange={handleInputChange}
-                >
-                  <option value="">Select State</option>
-                  <option value="Andhra Pradesh">Andhra Pradesh</option>
-                  <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                  <option value="Assam">Assam</option>
-                  <option value="Bihar">Bihar</option>
-                  <option value="Chhattisgarh">Chhattisgarh</option>
-                  <option value="Goa">Goa</option>
-                  <option value="Gujarat">Gujarat</option>
-                  <option value="Haryana">Haryana</option>
-                  <option value="Himachal Pradesh">Himachal Pradesh</option>
-                  <option value="Jharkhand">Jharkhand</option>
-                  <option value="Karnataka">Karnataka</option>
-                  <option value="Kerala">Kerala</option>
-                  <option value="Madhya Pradesh">Madhya Pradesh</option>
-                  <option value="Maharashtra">Maharashtra</option>
-                  <option value="Manipur">Manipur</option>
-                  <option value="Meghalaya">Meghalaya</option>
-                  <option value="Mizoram">Mizoram</option>
-                  <option value="Nagaland">Nagaland</option>
-                  <option value="Odisha">Odisha</option>
-                  <option value="Punjab">Punjab</option>
-                  <option value="Rajasthan">Rajasthan</option>
-                  <option value="Sikkim">Sikkim</option>
-                  <option value="Tamil Nadu">Tamil Nadu</option>
-                  <option value="Telangana">Telangana</option>
-                  <option value="Tripura">Tripura</option>
-                  <option value="Uttar Pradesh">Uttar Pradesh</option>
-                  <option value="Uttarakhand">Uttarakhand</option>
-                  <option value="West Bengal">West Bengal</option>
-                </select>
+
+              {/* Optional Fields */}
+              <div className="form-section optional">
+                <h3>Optional Information</h3>
+                
+                <div className="form-group">
+                  <label>Phone Number</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={farmerProfile.phone}
+                    onChange={handleInputChange}
+                    placeholder="Enter phone number"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={farmerProfile.email}
+                    onChange={handleInputChange}
+                    placeholder="Enter email address"
+                  />
+                </div>
               </div>
-              <div className="form-group">
-                <label>Phone Number</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={farmerProfile.phone}
-                  onChange={handleInputChange}
-                  placeholder="Enter phone number"
-                />
-              </div>
-              <div className="form-group">
-                <label>Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={farmerProfile.email}
-                  onChange={handleInputChange}
-                  placeholder="Enter email address"
-                />
-              </div>
+
               <button onClick={handleProfileUpdate} className="save-profile-btn">
                 Save Profile
               </button>

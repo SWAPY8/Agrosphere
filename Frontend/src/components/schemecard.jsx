@@ -1,9 +1,14 @@
 import React from 'react';
 import './schemecard.css';
 
-const SchemeCard = ({ title, description, eligibility, link }) => {
+const SchemeCard = ({ title, description, eligibility, benefits, link, isRecommended }) => {
   return (
-    <div className="scheme-card">
+    <div className={`scheme-card ${isRecommended ? 'recommended' : ''}`}>
+      {isRecommended && (
+        <div className="recommended-badge">
+          <span>⭐ Recommended for You</span>
+        </div>
+      )}
       <div className="scheme-card-header">
         <h3>{title}</h3>
       </div>
@@ -14,6 +19,13 @@ const SchemeCard = ({ title, description, eligibility, link }) => {
           <div className="scheme-eligibility">
             <h4>Eligibility:</h4>
             <p>{eligibility}</p>
+          </div>
+        )}
+        
+        {benefits && (
+          <div className="scheme-benefits">
+            <h4>Benefits:</h4>
+            <p>{benefits}</p>
           </div>
         )}
         
@@ -33,3 +45,4 @@ const SchemeCard = ({ title, description, eligibility, link }) => {
 };
 
 export default SchemeCard;
+

@@ -45,7 +45,7 @@ const HomePage = ({ setCurrentPage }) => {
               <div className="feature-icon">⚡</div>
               <h3 className="feature-title">Quick & Easy</h3>
               <p className="feature-description">
-                Simple form submission with instant results
+                Simple profile setup with instant personalized results
               </p>
             </div>
           </div>
