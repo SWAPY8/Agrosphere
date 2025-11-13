@@ -58,7 +58,7 @@ const Navbar = ({
       setShowProfile(false);
       alert('Profile saved successfully to database! Visit Schemes page to see personalized recommendations.');
     } else {
-      alert('Error saving profile: ' + data.message);
+      alert('Error setting profile: ' + data.message);
     }
     
   } catch (error) {
