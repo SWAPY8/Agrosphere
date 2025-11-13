@@ -19,18 +19,56 @@ const Navbar = ({
     { id: 'contact', label: 'Contact', icon: Mail }
   ];
 
-  const handleProfileUpdate = (e) => {
-    e.preventDefault();
+  const handleProfileUpdate = async (e) => {
+  e.preventDefault();
+  
+  // Validate required fields
+  if (!farmerProfile.name || !farmerProfile.state || !farmerProfile.landSize || !farmerProfile.cropType) {
+    alert('Please fill all required fields: Name, State, Land Size, and Crop Type');
+    return;
+  }
+  
+  try {
+    // Call backend API to save profile
+    const response = await fetch('http://localhost:8080/api/farmer/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: farmerProfile.name,
+        state: farmerProfile.state,
+        landSize: parseFloat(farmerProfile.landSize),
+        cropType: farmerProfile.cropType,
+        phone: farmerProfile.phone,
+        email: farmerProfile.email
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
     
-    // Validate required fields
-    if (!farmerProfile.name || !farmerProfile.state || !farmerProfile.landSize || !farmerProfile.cropType) {
-      alert('Please fill all required fields: Name, State, Land Size, and Crop Type');
-      return;
+    if (data.success) {
+      // Store profile ID in localStorage for future reference
+      localStorage.setItem('profileId', data.id);
+      
+      setShowProfile(false);
+      alert('Profile saved successfully to database! Visit Schemes page to see personalized recommendations.');
+    } else {
+      alert('Error saving profile: ' + data.message);
     }
     
+  } catch (error) {
+    console.error('Error saving profile:', error);
+    alert('Failed to save profile to database. Please ensure backend is running.');
+    
+    // Fallback: Still close modal and save to localStorage
     setShowProfile(false);
-    alert('Profile saved successfully! Visit Schemes page to see personalized recommendations.');
-  };
+  }
+};
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
