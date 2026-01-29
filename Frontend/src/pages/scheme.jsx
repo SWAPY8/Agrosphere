@@ -16,19 +16,60 @@ const SchemesPage = ({ farmerProfile }) => {
     income: '',
     category: 'General'
   });
+  const validateFarmerProfile = (profile) => {
+  const errors = {};
+
+  if (!profile.name || profile.name.trim().length < 3) {
+    errors.name = 'Name must be at least 3 characters';
+  }
+
+  if (!profile.state || profile.state.trim() === '') {
+    errors.state = 'State is required';
+  }
+
+  const landSize = parseFloat(profile.landSize);
+  if (isNaN(landSize) || landSize <= 0) {
+    errors.landSize = 'Land size must be a positive number';
+  }
+
+  if (!profile.cropType || profile.cropType.trim() === '') {
+    errors.cropType = 'Crop type is required';
+  }
+
+  return {
+    isValid: Object.keys(errors).length === 0,
+    errors
+  };
+};
+
   const [additionalSchemes, setAdditionalSchemes] = useState([]);
   const [formLoading, setFormLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const isProfileComplete = farmerProfile.name && farmerProfile.state && 
-                            farmerProfile.landSize && farmerProfile.cropType;
+  const { isValid: isProfileComplete, errors: profileErrors } =
+  validateFarmerProfile(farmerProfile);
 
   // Fetch schemes based on profile when component mounts or profile changes
   useEffect(() => {
-    if (isProfileComplete) {
-      fetchProfileBasedSchemes();
-    }
-  }, [farmerProfile]);
+  if (!isProfileComplete) return;
+  fetchProfileBasedSchemes();
+}, [farmerProfile]);
+
+{!isProfileComplete && (
+  <div className="profile-incomplete-message">
+    <div className="message-icon">👤</div>
+    <h3>Profile Incomplete or Invalid</h3>
+
+    <ul className="profile-errors">
+      {Object.values(profileErrors).map((err, index) => (
+        <li key={index}>{err}</li>
+      ))}
+    </ul>
+
+    <p>Fix the above issues to unlock personalized schemes.</p>
+  </div>
+)}
+
 
   // API CALL 1: Fetch schemes based on saved profile
   const fetchProfileBasedSchemes = async () => {
@@ -64,6 +105,7 @@ const SchemesPage = ({ farmerProfile }) => {
     }
   };
 
+  
   // API CALL 2: Find additional eligible schemes with more details
   const handleSubmit = async (e) => {
     e.preventDefault();
