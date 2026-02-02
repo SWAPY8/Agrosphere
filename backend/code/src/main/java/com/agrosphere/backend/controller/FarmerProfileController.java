@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api/farmer")
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:5173")
 public class FarmerProfileController {
     @Autowired
     private FarmerProfileService farmerService;
