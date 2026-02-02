@@ -30,7 +30,7 @@ const Navbar = ({
   
   try {
     // Call backend API to save profile
-    const response = await fetch('http://192.168.1.5:8084/api/farmer/signup', {
+    const response = await fetch('http://localhost:8084/api/farmer/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

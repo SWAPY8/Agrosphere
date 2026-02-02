@@ -3,7 +3,7 @@ import SchemeCard from '../components/schemecard';
 import './scheme.css';
 
 // API Configuration
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'http://localhost:8084/api';
 
 const SchemesPage = ({ farmerProfile }) => {
   // State for profile-based schemes
@@ -141,7 +141,7 @@ const SchemesPage = ({ farmerProfile }) => {
       setAdditionalSchemes(data.schemes || []);
     } catch (err) {
       console.error('Error fetching eligible schemes:', err);
-      setError('Failed to fetch schemes. Please ensure the backend is running on localhost:8080');
+      setError('Failed to fetch schemes. Please ensure the backend is running on localhost:8084');
       setAdditionalSchemes(getAdditionalDemoSchemes());
     } finally {
       setFormLoading(false);
